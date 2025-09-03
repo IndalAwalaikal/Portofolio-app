@@ -1,6 +1,4 @@
-import { Heart } from 'lucide-react';
-import SocialLinks from './SocialLinks'; // 👈 Import komponen SocialLinks
-import Link from 'next/link';
+import SocialLinks from './SocialLinks'; 
 
 export default function Footer() {
   return (

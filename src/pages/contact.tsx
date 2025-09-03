@@ -345,7 +345,7 @@ const Contact: NextPage = () => {
                 {faqs.map((faq, index) => (
                   <AnimatedSection
                     key={faq.question}
-                    delay={index * 0.1}
+                    delay={index * 0.5}
                     duration={0.5}
                     className="h-full"
                   >

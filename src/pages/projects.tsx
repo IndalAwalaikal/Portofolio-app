@@ -58,13 +58,13 @@ export default function ProjectsPage() {
           <div className="grid md:grid-cols-2 gap-10">
             {projects.map((project, index) => {
               // Batasi delay maksimal 0.6 detik agar tidak terlalu lama
-              const delay = Math.min(index * 0.15, 0.6);
+              const delay = Math.min(index * 0.15, 0.8);
 
               return (
                 <AnimatedSection key={project.id} delay={delay}>
                   <motion.div
                     whileHover={{ y: -10 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.5 }}
                     className="group bg-slate-800/60 backdrop-blur-sm border border-slate-700 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-500 relative"
                   >
                     {/* Gambar Proyek */}

@@ -84,7 +84,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Portofolio Profesional</title>
+        <title>Portofolio Indal Awalaikal</title>
         <meta
           name="description"
           content="Portofolio profesional modern dibuat dengan Next.js dan TypeScript"
@@ -214,7 +214,7 @@ const Home: NextPage = () => {
               >
                 <div className="relative w-full max-w-xs md:max-w-sm lg:max-w-md aspect-square rounded-3xl overflow-hidden border border-blue-500/30 shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:scale-105">
                   <img
-                    src="/images/indal-awalaikal.jpg" // 👈 Ganti dengan path gambar kamu
+                    src="/images/indal-awalaikal.jpg"
                     alt="Indal Awalaikal - Pengembang Full-Stack"
                     className="w-full h-full object-cover"
                     loading="lazy"
