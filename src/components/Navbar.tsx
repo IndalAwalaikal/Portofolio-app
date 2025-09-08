@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: 'Beranda', href: '/' },
     { name: 'Tentang', href: '/about' },
     { name: 'Proyek', href: '/projects' },
+    { name: 'Sertifikat', href: '/certificates' },
     { name: 'Kontak', href: '/contact' },
   ];
 
