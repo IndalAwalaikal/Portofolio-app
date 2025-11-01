@@ -1,14 +1,23 @@
+// src/components/CertificateCard.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { pdfjs, Document, Page } from "react-pdf";
-import { FileText, X } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { pdfjs } from "react-pdf";
+import dynamic from "next/dynamic";
+import { X } from "lucide-react";
 import type { Certificate } from "../types/certificate";
 
-if (typeof window !== "undefined") {
-  const pdfjsVersion = "3.11.174";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`;
-}
+const Document = dynamic(
+  () => import("react-pdf").then((mod) => mod.Document),
+  {
+    ssr: false,
+    loading: () => <div className="py-4 text-gray-400">Memuat...</div>,
+  }
+);
+
+const Page = dynamic(() => import("react-pdf").then((mod) => mod.Page), {
+  ssr: false,
+});
 
 interface CertificateCardProps {
   cert: Certificate;
@@ -21,69 +30,74 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pdfWidth, setPdfWidth] = useState(600);
 
+  // Inisialisasi worker PDF.js hanya di client
+  useEffect(() => {
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
+  }, []);
+
   // Animasi muncul
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 50 + index * 50);
+    const delay = Math.min(index * 50, 200);
+    const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);
   }, [index]);
 
-  // Ukuran PDF viewer responsif
-  useEffect(() => {
-    const handleResize = () => {
-      setPdfWidth(window.innerWidth > 768 ? 800 : window.innerWidth - 60);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  // Responsif PDF di modal
+  const updatePdfWidth = useCallback(() => {
+    setPdfWidth(window.innerWidth > 768 ? 800 : window.innerWidth - 60);
   }, []);
+
+  useEffect(() => {
+    updatePdfWidth();
+    window.addEventListener("resize", updatePdfWidth);
+    return () => window.removeEventListener("resize", updatePdfWidth);
+  }, [updatePdfWidth]);
 
   // Warna berdasarkan kategori
   const getCategoryColors = (category: Certificate["category"]) => {
+    const base = {
+      bg: "from-slate-600/20 to-gray-600/20",
+      border: "border-slate-500/30",
+      text: "text-slate-400",
+    };
     switch (category) {
       case "development":
         return {
+          ...base,
           bg: "from-blue-600/20 to-cyan-600/20",
           border: "border-blue-500/30",
           text: "text-blue-400",
-          progress: "from-blue-500 to-cyan-500",
         };
       case "design":
         return {
+          ...base,
           bg: "from-pink-600/20 to-rose-600/20",
           border: "border-pink-500/30",
           text: "text-pink-400",
-          progress: "from-pink-500 to-rose-500",
         };
       case "data":
         return {
+          ...base,
           bg: "from-green-600/20 to-emerald-600/20",
           border: "border-green-500/30",
           text: "text-green-400",
-          progress: "from-green-500 to-emerald-500",
         };
       case "devops":
         return {
+          ...base,
           bg: "from-purple-600/20 to-violet-600/20",
           border: "border-purple-500/30",
           text: "text-purple-400",
-          progress: "from-purple-500 to-violet-500",
         };
       case "business":
         return {
+          ...base,
           bg: "from-amber-600/20 to-orange-600/20",
           border: "border-amber-500/30",
           text: "text-amber-400",
-          progress: "from-amber-500 to-orange-500",
         };
       default:
-        return {
-          bg: "from-slate-600/20 to-gray-600/20",
-          border: "border-slate-500/30",
-          text: "text-slate-400",
-          progress: "from-slate-500 to-gray-500",
-        };
+        return base;
     }
   };
 
@@ -91,82 +105,57 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
 
   return (
     <>
-      {/* Certificate Card */}
+      {/* Card dengan preview gambar */}
       <div
-        className={`group relative bg-gradient-to-br ${colors.bg} backdrop-blur-lg border ${colors.border} rounded-2xl overflow-hidden cursor-pointer hover:border-opacity-60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 ${
+        className={`group relative bg-gradient-to-br ${
+          colors.bg
+        } backdrop-blur-lg border ${
+          colors.border
+        } rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-opacity-60 hover:shadow-lg hover:-translate-y-1 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
-        style={{ transitionDelay: `${index * 0.1}s` }}
         onClick={() => setIsModalOpen(true)}
+        onKeyDown={(e) => e.key === "Enter" && setIsModalOpen(true)}
         role="button"
         tabIndex={0}
         aria-label={`Lihat sertifikat: ${cert.title}`}
       >
-        {/* Thumbnail PDF */}
-        <div className="relative aspect-video overflow-hidden bg-slate-800">
-          {/* Container yang hanya menampilkan 50% bagian atas */}
-          <div
-            className="absolute inset-0 flex justify-center"
-            style={{ clipPath: "inset(0 0 50% 0)" }}
-          >
-            <Document
-              file={cert.pdf}
-              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-              loading=""
-              error={
-                <div className="flex items-center justify-center w-full h-full bg-slate-700 text-sm text-gray-300">
-                  Gagal Muat
-                </div>
-              }
-            >
-              <Page
-                pageNumber={1}
-                width={620}
-                renderTextLayer={false}
-                renderAnnotationLayer={false}
-                className="mx-auto"
-              />
-            </Document>
-          </div>
-
-          {/* Overlay Hover (full area) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex items-center gap-2 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-full">
-              <FileText className="w-5 h-5" />
-              <span className="text-sm font-medium">Lihat PDF</span>
-            </div>
-          </div>
+        <div className="relative aspect-video bg-slate-800 overflow-hidden">
+          <img
+            src={cert.preview}
+            alt={`Preview sertifikat ${cert.title}`}
+            className="w-full h-full object-contain"
+            loading="lazy"
+          />
         </div>
-
-        {/* Info */}
         <div className="p-4">
-          <h3 className="text-lg font-bold text-white truncate">{cert.title}</h3>
+          <h3 className="text-lg font-bold text-white truncate">
+            {cert.title}
+          </h3>
           <p className={`text-sm ${colors.text}`}>{cert.issuer}</p>
           <p className="text-xs text-gray-400 mt-1">{cert.date}</p>
         </div>
       </div>
 
-      {/* Modal Lihat PDF */}
+      {/* Modal PDF */}
       {isModalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
           onClick={() => setIsModalOpen(false)}
           role="dialog"
           aria-modal="true"
-          aria-label={`Modal: ${cert.title}`}
+          aria-label={`Lihat sertifikat: ${cert.title}`}
         >
           <div
             className="relative w-full max-w-6xl max-h-[90vh] bg-slate-900 rounded-xl border border-slate-700 flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header Modal */}
             <div className="flex items-center justify-between p-4 border-b border-slate-700">
               <div>
                 <h2 className="text-xl font-bold text-white">{cert.title}</h2>
                 <p className="text-sm text-gray-400">
-                  {cert.issuer} • {cert.date} •{" "}
-                  {numPages ? `${numPages} halaman` : "..."}
+                  {cert.issuer} • {cert.date}
+                  {numPages && ` • ${numPages} halaman`}
                 </p>
               </div>
               <button
@@ -178,42 +167,36 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
               </button>
             </div>
 
-            {/* Viewer PDF */}
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto p-4 bg-slate-950">
               <Document
                 file={cert.pdf}
+                onLoadSuccess={({ numPages }) => setNumPages(numPages)}
                 loading={
-                  <div className="flex items-center justify-center py-8 text-gray-400">
+                  <div className="flex items-center justify-center py-12 text-gray-400">
                     Memuat sertifikat...
                   </div>
                 }
                 error={
-                  <div className="p-4 text-center text-red-400">
-                    Gagal memuat PDF. Coba lagi.
+                  <div className="p-6 text-center text-red-400 bg-slate-900 rounded">
+                    Gagal memuat PDF. Pastikan file tersedia di{" "}
+                    <code className="font-mono">public{cert.pdf}</code>.
                   </div>
                 }
                 className="flex flex-col items-center"
               >
-                {numPages ? (
-                  Array.from({ length: numPages }, (_, i) => (
-                    <Page
-                      key={`page_${i + 1}`}
-                      pageNumber={i + 1}
-                      width={pdfWidth}
-                      renderTextLayer={false}
-                      renderAnnotationLayer={false}
-                      className="mb-4 drop-shadow-lg rounded"
-                    />
-                  ))
-                ) : (
-                  <p className="text-center text-gray-400">
-                    Sedang memuat jumlah halaman...
-                  </p>
-                )}
+                {Array.from({ length: numPages || 0 }, (_, i) => (
+                  <Page
+                    key={`page_${i + 1}`}
+                    pageNumber={i + 1}
+                    width={pdfWidth}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    className="mb-6 drop-shadow-md rounded"
+                  />
+                ))}
               </Document>
             </div>
 
-            {/* Footer Info */}
             <div className="p-3 bg-slate-800/50 text-xs text-gray-400 space-y-1">
               {cert.credentialId && (
                 <p>

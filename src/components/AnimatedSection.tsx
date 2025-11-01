@@ -1,7 +1,7 @@
 // src/components/AnimatedSection.tsx
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface AnimatedSectionProps {
@@ -9,24 +9,31 @@ interface AnimatedSectionProps {
   delay?: number;
   duration?: number;
   className?: string;
+  once?: boolean; // opsional: apakah animasi hanya sekali
 }
 
 export default function AnimatedSection({
   children,
   delay = 0,
-  duration = 0.4, 
+  duration = 0.4,
   className,
+  once = true,
 }: AnimatedSectionProps) {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Batasi delay maksimal agar tidak terlalu lama
+  const clampedDelay = Math.min(delay, 0.4);
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 30 }} 
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+      whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once, margin: '-100px' }}
       transition={{
-        duration: duration,
-        ease: 'easeOut', 
-        delay: delay,
+        duration: shouldReduceMotion ? 0 : duration,
+        ease: 'easeOut',
+        delay: shouldReduceMotion ? 0 : clampedDelay,
       }}
     >
       {children}

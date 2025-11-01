@@ -1,11 +1,12 @@
 // types/certificate.ts
-export interface Certificate {
+export type Certificate = {
   title: string;
   issuer: string;
   date: string;
   credentialId?: string;
-  pdf: string;
+  pdf: string;       // path ke file PDF asli, contoh: "/certificates/frontend.pdf"
+  preview: string;   // path ke gambar preview, contoh: "/certificates/frontend-preview.jpg"
   skills: string[];
-  level?: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
-  category: 'development' | 'design' | 'data' | 'devops' | 'business' | 'other';
-}
+  level?: string;
+  category: "development" | "design" | "data" | "devops" | "business";
+};

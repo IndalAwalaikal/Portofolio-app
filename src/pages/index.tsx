@@ -1,3 +1,4 @@
+// pages/index.tsx
 import { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
@@ -7,7 +8,8 @@ import ProjectCard from "@/components/ProjectCard";
 import SkillCard from "@/components/SkillCard";
 import SocialLinks from "@/components/SocialLinks";
 
-interface Project {
+// Tipe data
+export interface Project {
   id: number;
   title: string;
   description: string;
@@ -16,71 +18,96 @@ interface Project {
   link?: string;
 }
 
-interface Skill {
+export interface Skill {
   name: string;
   level: number;
   category: string;
   technologies: string[];
 }
 
+// Data statis di luar komponen → tidak dirender ulang
+const PROJECTS: readonly Project[] = [
+  {
+    id: 1,
+    title: "LogicLeap Academy",
+    description:
+      "Sebuah platform pembelajaran algoritma dan pemrograman online yang menyediakan berbagai kursus dan materi edukasi interaktif.",
+    technologies: ["Vite JS", "React", "Tailwind CSS", "TypeScript"],
+    image: "/images/project/logicleap.png",
+    link: "https://logicleap-academy.vercel.app/",
+  },
+  {
+    id: 2,
+    title: "COCONUT Event Registration",
+    description:
+      "Sebuah aplikasi pendaftaran kegiatan COCONUT Computer Club dengan fitur manajemen acara dan peserta.",
+    technologies: [
+      "Vite JS",
+      "React",
+      "Tailwind CSS",
+      "TypeScript",
+      "Golang",
+      "MySQL",
+    ],
+    image: "/images/project/join-event.png",
+    link: "https://github.com/IndalAwalaikal/join-event-coconut.git",
+  },
+  {
+    id: 3,
+    title: "COCONUT Open Class",
+    description:
+      "Sebuah aplikasi pendaftaran kelas terbuka COCONUT Computer Club",
+    technologies: [
+      "Vite JS",
+      "React",
+      "Tailwind CSS",
+      "TypeScript",
+      "Golang",
+      "MySQL",
+    ],
+    image: "/images/project/coc.png",
+    link: "https://pendaftaran-coc.vercel.app/",
+  },
+];
+
+const SKILLS: readonly Skill[] = [
+  {
+    name: "Pengembangan Frontend",
+    level: 70,
+    category: "frontend",
+    technologies: ["React", "Next.js", "TypeScript"],
+  },
+  {
+    name: "Pengembangan Backend",
+    level: 90,
+    category: "backend",
+    technologies: ["Node.js", "Python", "PostgreSQL", "Golang", "FastAPI"],
+  },
+  {
+    name: "Cloud & DevOps",
+    level: 50,
+    category: "devops",
+    technologies: ["AWS", "Docker", "CI/CD"],
+  },
+  {
+    name: "Desain UI/UX",
+    level: 70,
+    category: "design",
+    technologies: ["Figma", "Tailwind", "Design Systems"],
+  },
+];
+
+const TECH_STACK = [
+  "React",
+  "Next.js",
+  "Vite.js",
+  "TypeScript",
+  "Golang",
+  "Python",
+  "MySQL",
+] as const;
+
 const Home: NextPage = () => {
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Platform E-Commerce",
-      description:
-        "Solusi e-commerce full-stack dengan Next.js, TypeScript, dan integrasi pembayaran modern.",
-      technologies: ["Next.js", "TypeScript", "Stripe", "Prisma"],
-      image: "/api/placeholder/400/250",
-      link: "https://github.com",
-    },
-    {
-      id: 2,
-      title: "Aplikasi Manajemen Tugas",
-      description:
-        "Aplikasi manajemen tugas kolaboratif dengan pembaruan real-time dan fitur kerja tim.",
-      technologies: ["React", "Socket.io", "Node.js", "MongoDB"],
-      image: "/api/placeholder/400/250",
-      link: "https://github.com",
-    },
-    {
-      id: 3,
-      title: "Dashboard Analitik",
-      description:
-        "Dashboard business intelligence dengan grafik interaktif dan visualisasi data real-time.",
-      technologies: ["React", "D3.js", "Python", "FastAPI"],
-      image: "/api/placeholder/400/250",
-      link: "https://github.com",
-    },
-  ];
-
-  const skills: Skill[] = [
-    {
-      name: "Pengembangan Frontend",
-      level: 70,
-      category: "frontend",
-      technologies: ["React", "Next.js", "TypeScript"],
-    },
-    {
-      name: "Pengembangan Backend",
-      level: 90,
-      category: "backend",
-      technologies: ["Node.js", "Python", "PostgreSQL", "Golang", "FastAPI"],
-    },
-    {
-      name: "Cloud & DevOps",
-      level: 50,
-      category: "devops",
-      technologies: ["AWS", "Docker", "CI/CD"],
-    },
-    {
-      name: "Desain UI/UX",
-      level: 70,
-      category: "design",
-      technologies: ["Figma", "Tailwind", "Design Systems"],
-    },
-  ];
-
   return (
     <>
       <Head>
@@ -97,10 +124,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white">
         <Navbar />
 
-        {/* Bagian Hero */}
+        {/* Hero Section */}
         <section
           id="home"
           className="min-h-screen flex items-center justify-center relative overflow-hidden"
@@ -138,7 +165,8 @@ const Home: NextPage = () => {
 
             <AnimatedSection delay={1.3} duration={1.3} className="mb-10">
               <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-                Membuat pengalaman digital inovatif dengan teknologi modern dan solusi desain kreatif.
+                Membuat pengalaman digital inovatif dengan teknologi modern dan
+                solusi desain kreatif.
               </p>
             </AnimatedSection>
 
@@ -162,11 +190,10 @@ const Home: NextPage = () => {
           </div>
         </section>
 
-        {/* Bagian Tentang Saya */}
+        {/* About Section */}
         <section id="about" className="py-20">
-          <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-              {/* Teks Bagian Kiri */}
+          <div className="container mx-auto px-6 max-w-6xl">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               <AnimatedSection delay={0.3} duration={1.4}>
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
                   Tentang Saya
@@ -177,24 +204,26 @@ const Home: NextPage = () => {
                     <span className="font-semibold text-blue-300">
                       Indal Awalaikal
                     </span>
-                    , seorang pengembang full-stack yang bersemangat dengan keahlian di bidang teknologi web modern. Saya suka mengubah ide menjadi pengalaman digital yang fungsional dan indah.
+                    , seorang pengembang full-stack yang bersemangat dengan
+                    keahlian di bidang teknologi web modern. Saya suka mengubah
+                    ide menjadi pengalaman digital yang fungsional dan indah.
                   </p>
                   <p>
-                    Dengan fondasi kuat di pengembangan frontend dan backend, saya fokus pada pembuatan aplikasi yang skalabel dan desain yang berpusat pada pengguna. Tujuan saya adalah menyelesaikan masalah kompleks dengan kode yang bersih, efisien, dan solusi kreatif.
+                    Dengan fondasi kuat di pengembangan frontend dan backend,
+                    saya fokus pada pembuatan aplikasi yang skalabel dan desain
+                    yang berpusat pada pengguna. Tujuan saya adalah
+                    menyelesaikan masalah kompleks dengan kode yang bersih,
+                    efisien, dan solusi kreatif.
                   </p>
                   <p>
-                    Saya menggabungkan ketepatan teknis dengan pemikiran kreatif untuk menghadirkan proyek yang tidak hanya kuat, tetapi juga menyenangkan digunakan. Saya selalu mengeksplorasi teknologi baru untuk tetap berada di garis depan inovasi, dengan fokus utama pada pengembangan backend.
+                    Saya menggabungkan ketepatan teknis dengan pemikiran kreatif
+                    untuk menghadirkan proyek yang tidak hanya kuat, tetapi juga
+                    menyenangkan digunakan. Saya selalu mengeksplorasi teknologi
+                    baru untuk tetap berada di garis depan inovasi, dengan fokus
+                    utama pada pengembangan backend.
                   </p>
                   <div className="flex flex-wrap gap-3 pt-4">
-                    {[
-                      "React",
-                      "Next.js",
-                      "Vite.js",
-                      "TypeScript",
-                      "Golang",
-                      "Python",
-                      "MySQL",
-                    ].map((tech) => (
+                    {TECH_STACK.map((tech) => (
                       <span
                         key={tech}
                         className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium"
@@ -206,46 +235,48 @@ const Home: NextPage = () => {
                 </div>
               </AnimatedSection>
 
-              {/* Gambar Bagian Kanan */}
               <AnimatedSection
                 delay={0.7}
                 duration={1.6}
                 className="flex justify-center"
               >
-                <div className="relative w-full max-w-xs md:max-w-sm lg:max-w-md aspect-square rounded-3xl overflow-hidden border border-blue-500/30 shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 transform hover:scale-105">
+                <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden border border-blue-500/30 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:scale-105">
                   <img
-                    src="/images/indal-awalaikal.jpg"
+                    src="/images/indal-awalaikal.png"
                     alt="Indal Awalaikal - Pengembang Full-Stack"
-                    className="w-full h-full object-cover"
+                    width={400}
+                    height={400}
                     loading="lazy"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "/images/placeholder-avatar.jpg";
+                    }}
                   />
-                  {/* Overlay gradien */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-cyan-600/10"></div>
-
-                  {/* Elemen mengambang dekoratif */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-cyan-600/10" />
                   <div
                     className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-30 blur-xl animate-pulse"
                     style={{ animationDelay: "0.5s" }}
-                  ></div>
+                  />
                   <div
                     className="absolute -bottom-8 -right-6 w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full opacity-30 blur-xl animate-pulse"
                     style={{ animationDelay: "1s" }}
-                  ></div>
+                  />
                 </div>
               </AnimatedSection>
             </div>
           </div>
         </section>
 
-        {/* Bagian Keterampilan */}
+        {/* Skills Section */}
         <section id="skills" className="py-20">
           <div className="container mx-auto px-6">
             <AnimatedSection>
               <h2 className="text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
                 Keterampilan Teknis
               </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {skills.map((skill, index) => (
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                {SKILLS.map((skill, index) => (
                   <SkillCard key={skill.name} skill={skill} index={index} />
                 ))}
               </div>
@@ -253,7 +284,7 @@ const Home: NextPage = () => {
           </div>
         </section>
 
-        {/* Bagian Proyek */}
+        {/* Projects Section */}
         <section id="projects" className="py-20">
           <div className="container mx-auto px-6">
             <AnimatedSection>
@@ -261,7 +292,7 @@ const Home: NextPage = () => {
                 Proyek Unggulan
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {projects.map((project, index) => (
+                {PROJECTS.map((project, index) => (
                   <ProjectCard
                     key={project.id}
                     project={project}
@@ -273,7 +304,7 @@ const Home: NextPage = () => {
           </div>
         </section>
 
-        {/* Bagian Kontak */}
+        {/* Contact Section */}
         <section id="contact" className="py-20">
           <div className="container mx-auto px-6">
             <AnimatedSection>
@@ -282,28 +313,32 @@ const Home: NextPage = () => {
               </h2>
               <div className="max-w-2xl mx-auto">
                 <div className="bg-slate-800/50 backdrop-blur-lg border border-blue-500/20 rounded-3xl p-8">
-                  <form className="space-y-6">
+                  <form className="space-y-6" aria-label="Formulir kontak">
                     <div className="grid md:grid-cols-2 gap-6">
                       <input
                         type="text"
                         placeholder="Nama Anda"
-                        className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300"
+                        aria-label="Nama Anda"
+                        className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-colors"
                       />
                       <input
                         type="email"
                         placeholder="Email Anda"
-                        className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300"
+                        aria-label="Email Anda"
+                        className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-colors"
                       />
                     </div>
                     <input
                       type="text"
                       placeholder="Subjek"
-                      className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300"
+                      aria-label="Subjek pesan"
+                      className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-colors"
                     />
                     <textarea
                       placeholder="Pesan Anda"
+                      aria-label="Isi pesan"
                       rows={5}
-                      className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 resize-none"
+                      className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-colors resize-none"
                     />
                     <button
                       type="submit"
