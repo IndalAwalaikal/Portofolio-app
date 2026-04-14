@@ -22,8 +22,8 @@ const PROJECTS = [
     description:
       "Sebuah aplikasi pendaftaran kegiatan COCONUT Computer Club dengan fitur manajemen acara dan peserta.",
     technologies: ["Vite JS", "React", "Tailwind CSS", "TypeScript", "Golang", "MySQL"],
-    image: "/images/project/join-event.png",
-    link: "https://github.com/IndalAwalaikal/join-event-coconut.git",
+    image: "/images/project/event.png",
+    link: "https://event.coconut.or.id/",
   },
   {
     id: 3,
@@ -36,21 +36,21 @@ const PROJECTS = [
   },
   {
     id: 4,
-    title: "Inventory Management App",
-    description:
-      "Solusi manajemen inventaris modern untuk pengelolaan stok, penjualan, dan laporan bisnis yang efisien.",
-    technologies: ["PHP", "MySQL"],
-    image: "/images/placeholder-project.jpg",
-    link: "https://github.com/IndalAwalaikal/inventaris_app",
-  },
-  {
-    id: 5,
     title: "Cocopen Website",
     description:
       "Sebuah aplikasi website pendaftaran calon anggota COCONUT Computer Club dengan fitur test dan ujian online.",
     technologies: ["Next.js", "Go", "MySQL"],
     image: "/images/project/cocopen.png",
     link: "https://github.com/IndalAwalaikal/cocopen-web-Apps-Now-Open-COCONUT",
+  },
+  {
+    id: 5,
+    title: "AgroAdvisor",
+    description:
+      "Sebuah aplikasi berbasis AI dan IOT untuk membantu petani dalam memecahkan masalah pertanian.",
+    technologies: ["Next.js", "Python", "MySQL", "FastAPI", "C++"],
+    image: "/images/project/rajang.png",
+    link: "https://rajang.inesa.id",
   },
 ] as const;
 

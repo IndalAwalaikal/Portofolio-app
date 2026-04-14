@@ -113,7 +113,7 @@ const About: NextPage = () => {
                   </h2>
                   <div className="space-y-5 text-base sm:text-lg text-gray-300 leading-relaxed">
                     <p>
-                      Saat ini saya adalah mahasiswa semester 5 di Program Studi
+                      Saat ini saya adalah mahasiswa semester 6 di Program Studi
                       Teknik Informatika dan Komputer, Universitas Negeri
                       Makassar, yang sedang menempuh pendidikan sejak tahun
                       2023. Perjalanan saya di dunia teknologi dimulai dari rasa

@@ -204,7 +204,7 @@ const Home: NextPage = () => {
                     <span className="font-semibold text-blue-300">
                       Indal Awalaikal
                     </span>
-                    , seorang pengembang full-stack yang bersemangat dengan
+                    , mahasiswa Universitas Negeri Makassar (NIM: 230209502026) dan seorang pengembang full-stack yang bersemangat dengan
                     keahlian di bidang teknologi web modern. Saya suka mengubah
                     ide menjadi pengalaman digital yang fungsional dan indah.
                   </p>
