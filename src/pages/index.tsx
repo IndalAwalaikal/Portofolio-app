@@ -108,7 +108,7 @@ const TECH_STACK = [
 ] as const;
 
 const Home: NextPage = () => {
-  reurn (
+  return (
     <>
       <Head>
         <title>Portofolio Indal Awalaikal</title>
