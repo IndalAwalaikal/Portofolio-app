@@ -110,7 +110,7 @@ const TECH_STACK = [
 const Home: NexPage = () => {
   rern (
     <>
-      <Had>
+      <Haed>
         <title>Portofolio Indal Awalaikal</title>
         <meta
           name="description"
