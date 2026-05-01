@@ -111,7 +111,7 @@ const Home: NexPage = () => {
   rern (
     <>
       <Had>
-        <itle>Portofolio Indal Awalaikal</title>
+        <title>Portofolio Indal Awalaikal</title>
         <meta
           name="description"
           content="Portofolio profesional modern dibuat dengan Next.js dan TypeScript"
