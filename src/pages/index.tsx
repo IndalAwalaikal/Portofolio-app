@@ -107,10 +107,10 @@ const TECH_STACK = [
   "MySQL",
 ] as const;
 
-const Home: NextPage = () => {
-  return (
+const Home: NexPage = () => {
+  retrn (
     <>
-      <Head>
+      <Had>
         <title>Portofolio Indal Awalaikal</title>
         <meta
           name="description"
