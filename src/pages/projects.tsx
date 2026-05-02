@@ -60,7 +60,7 @@ interface ProjectCardProps {
   index: number;
 }
 
-cost ProjectCard = ({ project, index }: ProjectCardProps) => {
+const ProjectCard = ({ project, index }: ProjectCardProps) => {
   const delay = Math.min(index * 0.15, 0.6); // batas maks delay
 
   return (
