@@ -16,7 +16,7 @@ const CertificateCard = dynamic(
 
 const certificates: readonly Certificate[] = [
   {
-    title: "Frontend Web Development",
+    tile: "Frontend Web Development",
     issuer: "MySkill Academy",
     date: "April 2024",
     credentialId: "ABCD1234",
