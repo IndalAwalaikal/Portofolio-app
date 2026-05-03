@@ -1,40 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🚀 Fortofolio-app
 
-## Getting Started
+Fortofolio-app adalah sebuah website portofolio pribadi yang dibangun menggunakan teknologi modern web. Proyek ini dirancang untuk menampilkan profil, pengalaman, proyek, sertifikat, dan kontak dengan tampilan yang profesional, interaktif, dan responsif di berbagai perangkat.
 
-First, run the development server:
+## ✨ Fitur Utama
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Tampilan Interaktif & Modern:** Dibangun dengan animasi yang halus menggunakan Framer Motion.
+- **Dark Mode Support:** Pengguna dapat dengan mudah beralih antara tema terang (Light Mode) dan gelap (Dark Mode).
+- **Responsif:** Tampilan yang dioptimalkan untuk perangkat mobile, tablet, dan desktop.
+- **Halaman Proyek & Sertifikat:** Menampilkan daftar karya dan sertifikat dengan kartu yang menarik.
+- **Dukungan Tampilan PDF:** Terintegrasi dengan `react-pdf` untuk menampilkan dokumen seperti CV atau resume langsung di browser.
+- **Performa Tinggi:** Menggunakan Next.js (Pages Router) untuk proses rendering yang cepat dan optimalisasi gambar/font bawaan.
+
+## 🛠️ Teknologi yang Digunakan
+
+Proyek ini dibangun menggunakan *tech stack* berikut:
+
+- **Framework:** [Next.js](https://nextjs.org/) (React 19)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animasi:** [Framer Motion](https://www.framer.com/motion/)
+- **Ikon:** [Lucide React](https://lucide.dev/)
+- **Tema:** [next-themes](https://github.com/pacocoursey/next-themes) (Untuk Dark Mode)
+- **PDF Viewer:** [react-pdf](https://github.com/wojtekmaj/react-pdf)
+- **Font:** [Inter (@fontsource/inter)](https://fontsource.org/fonts/inter)
+- **Linter & Formatting:** ESLint & TypeScript
+
+## 📂 Struktur Proyek
+
+Berikut adalah gambaran umum dari struktur direktori utama:
+
+```text
+├── public/                 # Aset statis seperti gambar (.png, .jpg) dan file lainnya
+├── src/
+│   ├── components/         # Komponen UI yang dapat digunakan kembali (Navbar, Footer, Cards, dll)
+│   ├── pages/              # Halaman-halaman website (index, about, projects, certificates, contact)
+│   ├── styles/             # File CSS global (termasuk konfigurasi Tailwind)
+│   └── types/              # Definisi tipe TypeScript
+├── next.config.ts          # Konfigurasi Next.js
+├── tailwind.config.ts      # Konfigurasi Tailwind CSS
+└── package.json            # Daftar dependensi dan scripts npm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Prasyarat
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Sebelum menjalankan proyek ini, pastikan Anda telah menginstal perangkat lunak berikut:
+- **Node.js** (versi 18.x atau lebih baru disarankan)
+- **npm** (atau package manager lain seperti Yarn/pnpm/bun)
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 🚀 Instalasi & Menjalankan secara Lokal
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+1. **Clone repositori ini:**
+   ```bash
+   git clone https://github.com/IndalAwalaikal/Fortofolio-app.git
+   cd Fortofolio-app
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Instal dependensi:**
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Jalankan server pengembangan (Development Server):**
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Buka di Browser:**
+   Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya. Halaman akan otomatis diperbarui setiap kali Anda menyimpan perubahan pada kode.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 🏗️ Build & Production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Untuk membangun proyek ini agar siap di-*deploy* ke tahap *production*, jalankan perintah berikut:
 
-## Deploy on Vercel
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Setelah proses build selesai, Anda dapat menjalankan server *production* dengan:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+```bash
+npm run start
+```
+
+## 👨‍💻 Pembuat
+
+- **Indal Awalaikal** - [GitHub Profile](https://github.com/IndalAwalaikal)
+
+---
+*Dibuat dengan ❤️ menggunakan Next.js dan Tailwind CSS.*
